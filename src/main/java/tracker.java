@@ -210,8 +210,8 @@ public static ArrayList<Expense> importData(String filename) {
                 // Print out the maximum and minimum cost category
                 String minCat = findMin(expenses);
                 String maxCat = findMax(expenses);
-                System.out.println("The most costly expense category is: " + maxCat);
-                 System.out.println("The lest expensive expense category is: " + minCat);
+                System.out.println("The MOST expensive expense category is: " + maxCat);
+                 System.out.println("The LEAST expensive expense category is: " + minCat);
                 // switch isOn to false to break out of the loop
             } else if (decision == 6) {
                 exportData(expenses,"expenses.txt");

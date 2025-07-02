@@ -33,20 +33,6 @@ public class trackerTest {
     expected.put("Taxes", 280.00);
     assertEquals(list2, expected);
     }
-
-    @Test
-    public void testminMax() {
-    Expense e1 = new Expense("Groceries", 50.00, "07-12-2003");
-    Expense e2 = new Expense("Taxes", 280.00, "15-1-2004");
-    ArrayList<Expense> list = new ArrayList<>();
-    list.add(e1);
-    list.add(e2);
-    Map<String, Double> list2 = tracker.calculateTotalCategory(list);
-    Map<String, Double> expected = new HashMap<>(); 
-    expected.put("Groceries", 50.00);
-    expected.put("Taxes", 280.00);
-    assertEquals(list2, expected);
-    }
    
     @Test
     public void testfindMin() {
