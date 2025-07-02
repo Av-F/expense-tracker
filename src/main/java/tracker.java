@@ -178,7 +178,7 @@ public static ArrayList<Expense> importData(String filename) {
                 String categoryUpperCase = category.substring(0,1).toUpperCase() 
                 + category.substring(1);
                 category = categoryUpperCase;
-                System.out.println("Enter expense amount:"); 
+                System.out.println("Enter expense amount (DO NOT include the $ sign):"); 
                 double amount = scan.nextDouble();
                 // Rounds the user value so that if they enter a decimal > 2, it will round to the 2nd decimal.
                 amount = Math.round(amount * 100.00) / 100.00;
