@@ -204,7 +204,7 @@ public static ArrayList<Expense> importData(String filename) {
             }
             
             
-                // Run the findMinMax(expenses) function to caculate the cheapest and most expensive expense category
+                // Run the findMinMax(expenses) functions to caculate the cheapest and most expensive expense category
             } else if (decision == 5) { 
                 calculateTotalCategory(expenses);
                 // Print out the maximum and minimum cost category
