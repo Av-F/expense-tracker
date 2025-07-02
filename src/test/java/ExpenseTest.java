@@ -1,4 +1,4 @@
-package src.main.test;
+
 // import junit and the assertions
 import org.junit.Test;
 
