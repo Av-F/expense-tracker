@@ -1,3 +1,4 @@
+package src.main.java;
 // Class of Expense
 public class Expense {
     String category;

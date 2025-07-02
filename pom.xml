@@ -8,7 +8,7 @@
   <artifactId>expense-tracker</artifactId>
   <version>1.0</version>
 
-  <name>expensetracker</name>
+  <name>expense-tracker</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
