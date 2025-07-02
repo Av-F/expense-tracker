@@ -2,8 +2,8 @@
 Simple expense tracker for a coding assignment 
 
 Function Breakdown:
-*  Expense.java
-The Expense object contains 3 attributes: the category, the amount, and the date, which serves as the "data" from the instructions. I made this decision since the instructions were a little unclear, and neither the clarifications provided nor the help I asked for pointed in a specific direction. 
+Expense.java
+- The Expense object contains 3 attributes: the category, the amount, and the date, which serves as the "data" from the instructions. I made this decision since the instructions were a little unclear, and neither the clarifications provided nor the help I asked for pointed in a specific direction. 
 
 The object has a couple of functions assigned to the class:
 - A constructor function that makes the object
@@ -15,7 +15,7 @@ Additionally, there are two additional functions:
 - An override of toString that returns each attribute separated by a comma so that it's in the CSV format for export/import
 - CSV_Out, which uses regular expressions to split the incoming line into 3 parts stored in an array, each part being an attribute of the Expense object. After the split, the function returns a new expense with each part index serving as the attribute.
 
-* tracker.java
+tracker.java
 - After importing everything I needed for the project, the first function I made was the main function. By creating variables to turn on the menu, which is run by a do-while loop, any choice that the user makes directs the program to another function in the file, which simulates the task necessary. In order to allow for future edits to one expense file, I made sure to include the creation of an arraylist to call an import function to take in prior expenses, so that the user can build off of it.
 - The next function was calculateTotal(), which takes in an array list of expenses and, in a for each loop of each expense, adds up the amount of each expense to a variable called total, then returns the total. Originally, I had this as a void function, but I had to change it so that I could test it properly using JUnit.
 - The following function, calculateTotalCategory(), utilizes the concept of using the key-value pairs in hashmaps (similar to dictionaries in Python). By iterating through each expense, I was able to put them into a key-value pair where the key is the category and the value is the amount. I was able to avoid duplicate keys by having an if statement where if the map already contains the key, to update the value by adding the current value to the incoming expense value.
