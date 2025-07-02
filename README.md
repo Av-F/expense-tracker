@@ -28,4 +28,5 @@ tracker.java
 Additional notes:
 - Originally, most of my functions were in the tracker.java be void functions, but I found that hard to test with so returning objects and utilizing them in main became the MO.
 - If I had more time, I would have put further enforcement on creating an expense as described in my presentation. By doing so, it would idiot proof the insertion process by forcing the user to subscribe to the method of making an expense.
+- More information on the program, such as how to run the file and works cited, is found in the presentation
 
