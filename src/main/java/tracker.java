@@ -37,27 +37,12 @@ public class tracker {
         // Return a map of category and total
         return totals;
     }
-    //findMinMax(ArrayList<Expense> expenses) is a function that when given an arraylist returns a hashmap of each category and their combined expenses
-    public static Map<String, Double> findMinMax(ArrayList<Expense> expenses) {
-       // Map each category into a key value pair
-       Map<String, Double> totals = new HashMap<>();
-        
-       for (Expense e : expenses) {
-            String eCategory = e.getCategory();
-            double eAmount = e.getAmount();
-            if (totals.containsKey(eCategory)) {
-            totals.put(eCategory, totals.get(eCategory) + eAmount);
-            } else {
-            totals.put(eCategory, eAmount);
-            }
-        }   
-        return totals;
-    }
+    
 
  //findMin(ArrayList<Expense> expenses) is a function that when given an arraylist, returns the category with the minumum total expense
 public static String findMin(ArrayList<Expense> expenses) {
    //Call findMinMax() to get a hashmap of each expense and their combined total
-    Map<String, Double> list = findMinMax(expenses);
+    Map<String, Double> list = calculateTotalCategory(expenses);
     // Create variables for the maximum and minimum categories
         String minCat = "";
         double minTotal = Double.POSITIVE_INFINITY;
@@ -76,7 +61,7 @@ public static String findMin(ArrayList<Expense> expenses) {
 }
  //findMax(ArrayList<Expense> expenses) is a function that when given an arraylist, returns the category with the maximum total expense
 public static String findMax(ArrayList<Expense> expenses) {
-   Map<String, Double> list = findMinMax(expenses);
+   Map<String, Double> list = calculateTotalCategory(expenses);
     // Create variables for the maximum and minimum categories
         String maxCat= "";
         double maxTotal = Double.NEGATIVE_INFINITY;
@@ -221,7 +206,7 @@ public static ArrayList<Expense> importData(String filename) {
             
                 // Run the findMinMax(expenses) function to caculate the cheapest and most expensive expense category
             } else if (decision == 5) { 
-                findMinMax(expenses);
+                calculateTotalCategory(expenses);
                 // Print out the maximum and minimum cost category
                 String minCat = findMin(expenses);
                 String maxCat = findMax(expenses);
