@@ -11,17 +11,17 @@ import java.util.Map;
 
 public class tracker {
         
-    // calculateTotal takes in the arrayList of expenses and calculates the total ammount of expenses 
-     public static void calculateTotal(ArrayList<Expense> expenses) {
+    // calculateTotal() takes in the arrayList of expenses and calculates the total ammount of expenses 
+     public static double calculateTotal(ArrayList<Expense> expenses) {
         double total = 0;
         for (Expense e : expenses) {
             total += e.getAmount(); 
         }
-        System.out.println("Total is: $"+ total);
+        return total;
     }
     
     // calculateTotalCategory() takes in an arrayList of expenses and calculates the expense by category
-    public static void calculateTotalCategory(ArrayList<Expense> expenses) {
+    public static Map<String, Double> calculateTotalCategory(ArrayList<Expense> expenses) {
        // Map the category and double 
         Map<String, Double> totals = new HashMap<>();        
         for (Expense e : expenses) {
@@ -34,15 +34,11 @@ public class tracker {
             totals.put(eCategory, eAmount);
             }
         }   
-        // Then for each category, print out the category name and total
-        for (Map.Entry<String, Double> entry : totals.entrySet()) {
-        String category = entry.getKey();
-        double total = entry.getValue();
-        System.out.println(category + "'s total cost is: " + total);
-        }
+        // Return a map of category and total
+        return totals;
     }
-    
-    public static void findMinMax(ArrayList<Expense> expenses) {
+    //findMinMax(ArrayList<Expense> expenses) is a function that when given an arraylist returns a hashmap of each category and their combined expenses
+    public static Map<String, Double> findMinMax(ArrayList<Expense> expenses) {
        // Map each category into a key value pair
        Map<String, Double> totals = new HashMap<>();
         
@@ -55,41 +51,59 @@ public class tracker {
             totals.put(eCategory, eAmount);
             }
         }   
-        // Create variables for the maximum and minimum categories
-        String maxCat= "";
+        return totals;
+    }
+
+ //findMin(ArrayList<Expense> expenses) is a function that when given an arraylist, returns the category with the minumum total expense
+public static String findMin(ArrayList<Expense> expenses) {
+   //Call findMinMax() to get a hashmap of each expense and their combined total
+    Map<String, Double> list = findMinMax(expenses);
+    // Create variables for the maximum and minimum categories
         String minCat = "";
-        double maxTotal = Double.NEGATIVE_INFINITY;
         double minTotal = Double.POSITIVE_INFINITY;
         // For each loop that gets through each category and total
-        for (Map.Entry<String, Double> entry : totals.entrySet()) {
+        for (Map.Entry<String, Double> entry : list.entrySet()) {
         String category = entry.getKey();
         double total = entry.getValue();
-            // to then compare the current total with the max/min total
-            // if found, then replace the max/mintotal with the curent total
+            // to then compare the current total with the min total
+            // if found, then replace the min total with the curent total
         if (total < minTotal) {
             minTotal = total;
             minCat = category;
         }
-        
+    }
+    return minCat;
+}
+ //findMax(ArrayList<Expense> expenses) is a function that when given an arraylist, returns the category with the maximum total expense
+public static String findMax(ArrayList<Expense> expenses) {
+   Map<String, Double> list = findMinMax(expenses);
+    // Create variables for the maximum and minimum categories
+        String maxCat= "";
+        double maxTotal = Double.NEGATIVE_INFINITY;
+        // For each loop that gets through each category and total
+        for (Map.Entry<String, Double> entry : list.entrySet()) {
+        String category = entry.getKey();
+        double total = entry.getValue();
+            // to then compare the current total with the max total
+            // if found, then replace the max total with the curent total
         if (total > maxTotal) {
             maxTotal = total;
             maxCat = category;
         }
     }
-    // Print out the maximum and minimum cost category
-    System.out.println("The most costly expense category is: " + maxCat);
-    System.out.println("The lest expensive expense category is: " + minCat);
+    return maxCat;
 }
+
 // Helper method getMonth gets the month and year of the date
-private static String getMonth(String date) {
+public static String getMonth(String date) {
     return date.substring(3, 10);
 }
 
 //Find trend shows the month/year trend of total expenses. 
-public static void findTrend(ArrayList<Expense> expenses) {
+public static Map<String, Double> findTrend(ArrayList<Expense> expenses) {
     // map out the key and value pair of month and total
     Map<String, Double> totals = new HashMap<>();
-    // itterate through the expenses, grabbing the month and storing into the month
+    // itterate through the expenses, grabbing the month and storing into the month string of the key value pair
     for (Expense e : expenses) {
         String month = getMonth(e.getDate());
         double amount = e.getAmount();
@@ -99,14 +113,10 @@ public static void findTrend(ArrayList<Expense> expenses) {
             totals.put(month, amount);
             }
         }  
-        // print out the totals per month in a map specific for each loop
-        for (Map.Entry<String, Double> entry : totals.entrySet()) {
-            String month = entry.getKey();
-            double total = entry.getValue();
-            System.out.println(month + "'s total cost is: " + total);
-        }
-}
-// Function to export the data 
+        return totals;
+    }
+
+// exportData(ArrayList<Expense> expenses, String filename) exports the data to a .txt file
 public static void exportData(ArrayList<Expense> expenses, String filename) {
     // In a try catch, create a PrintWriter and print out each expense as formatted in expense.java
     try (PrintWriter writer = new PrintWriter(new FileWriter(filename))) {
@@ -119,7 +129,8 @@ public static void exportData(ArrayList<Expense> expenses, String filename) {
         System.out.println("Error writing file: " + e.getMessage());
     }
 }
-// Function to import the data 
+
+// importData(String filename) is a function that imports a .txt file and makes an arrayList of type Expense from the data
 public static ArrayList<Expense> importData(String filename) {
     // Create an array list 
     ArrayList<Expense> expenses = new ArrayList<>();
@@ -136,7 +147,7 @@ public static ArrayList<Expense> importData(String filename) {
     }
     return expenses;
 }
-
+    // Main function
     public static void main(String[] args) {
         // List of Expenses arrayList
         ArrayList<Expense> expenses = importData("expenses.txt");
@@ -146,7 +157,7 @@ public static ArrayList<Expense> importData(String filename) {
         int decision = 0;
         //The menu
         do {
-            System.out.println("-----------------");
+            System.out.println("--------------------------------------------------------------------");
             System.out.println("Menu:");
             System.out.println("    Please enter the number corresponding to the desired task:");
             System.out.println("1: Enter an expense");
@@ -155,7 +166,7 @@ public static ArrayList<Expense> importData(String filename) {
             System.out.println("4: Find the expense trend");
             System.out.println("5: Find the highest and lowest spend category");
             System.out.println("6: Exit program");
-            System.out.println("-----------------");
+            System.out.println("--------------------------------------------------------------------");
             // Take in user input
             decision = scan.nextInt();
             scan.nextLine();
@@ -167,7 +178,6 @@ public static ArrayList<Expense> importData(String filename) {
                 String categoryUpperCase = category.substring(0,1).toUpperCase() 
                 + category.substring(1);
                 category = categoryUpperCase;
-
                 System.out.println("Enter expense amount:"); 
                 double amount = scan.nextDouble();
                 // Rounds the user value so that if they enter a decimal > 2, it will round to the 2nd decimal.
@@ -179,24 +189,45 @@ public static ArrayList<Expense> importData(String filename) {
                 
                 if(date.matches("\\d{2}-\\d{2}-\\d{4}")) {
                  // Create the expense and add it into the arrayList
-                Expense expense = new Expense(category, amount, date);
+                Expense expense = new Expense(category.trim(), amount, date);
                 expenses.add(expense);   
                 } else {
                     System.out.println("invaid date selected, try again");
                 }
             // Run the caculateTotal(expenses) function to calculate the running total
             } else if(decision == 2) {
-                calculateTotal(expenses);
+                System.out.println("Total is: $"+ calculateTotal(expenses));
             //Run the CaculateTotalCategory(expenses) function to calculate total by category
             } else if(decision ==3) {
-                calculateTotalCategory(expenses);
+            
+                Map<String,Double> list = calculateTotalCategory(expenses);
+            // Then for each category, print out the category name and total
+            for (Map.Entry<String, Double> entry : list.entrySet()) {
+                String category = entry.getKey();
+                double total = entry.getValue();
+                System.out.println(category + "'s total cost is: " + total);
+        }
             //Run findTrend(expenses) function to get the monthly spending trend
-            } else if (decision == 4) {
-                findTrend(expenses);
-            // Run the findMinMax(expenses) function to caculate the cheapest and most expensive expense category
+            } else if (decision == 4) {  
+               Map<String, Double> list = findTrend(expenses);
+                
+               // print out the totals per month in a map specific for each loop
+                for (Map.Entry<String, Double> entry : list.entrySet()) {
+                String month = entry.getKey();
+                double total = entry.getValue();
+                System.out.println(month + "'s total cost is: " + total);
+            }
+            
+            
+                // Run the findMinMax(expenses) function to caculate the cheapest and most expensive expense category
             } else if (decision == 5) { 
                 findMinMax(expenses);
-            // switch isOn to false to break out of the loop
+                // Print out the maximum and minimum cost category
+                String minCat = findMin(expenses);
+                String maxCat = findMax(expenses);
+                System.out.println("The most costly expense category is: " + maxCat);
+                 System.out.println("The lest expensive expense category is: " + minCat);
+                // switch isOn to false to break out of the loop
             } else if (decision == 6) {
                 exportData(expenses,"expenses.txt");
                 isOn = false;
